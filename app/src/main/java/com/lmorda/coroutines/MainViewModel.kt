@@ -12,24 +12,38 @@ import kotlinx.coroutines.launch
 class MainViewModel: ViewModel() {
 
     private val _readComplete = MutableLiveData<Boolean>()
-    var readComplete: LiveData<Boolean> = _readComplete
+    var readCompleteLiveData: LiveData<Boolean> = _readComplete
+
+    private var readComplete: Boolean = false
+
 
     fun readFile(context: Context, lifecycleOwner: LifecycleOwner) {
         val diskService = MockDiskService(context)
 
-        // launch is a coroutine builder that runs on the main thread
+        // launch is a coroutine builder that dispatches onto the main thread
         viewModelScope.launch {
 
-            // This would block the main thread since viewModelScope runs on the main thread!
+            // This would block the main thread since viewModelScope dispatches onto the main thread
+            // and this is not a suspending function!
             // diskService.longDiskOperation()
 
             // This does not block the main thread since we are calling the suspending function,
-            // so even though launch runs on the main thread this will not block the main thread
+            // so even though launch dispatches onto the main thread this will not block the main thread
             diskService.suspendingLongDiskOperation()
 
         }
         diskService.readComplete.observe(lifecycleOwner, Observer {
             _readComplete.postValue(it)
         })
+    }
+
+    fun readFile(context: Context): LiveData<Boolean> {
+        val diskService = MockDiskService(context)
+        // liveData is a coroutine builder that dispatches onto the main thread
+        return liveData {
+            // Same as above, does not block main thread
+            diskService.suspendingLongDiskOperation()
+            emit(readComplete)
+        }
     }
 }

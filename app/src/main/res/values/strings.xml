@@ -7,4 +7,5 @@
     <string name="lifecycle_scope">lifecycleScope</string>
     <string name="coroutine_scope_io_dispatcher">CoroutineScope(Dispatchers.IO)</string>
     <string name="viewmodel_scope">viewModelScope</string>
+    <string name="livedata_scope">liveData + emit</string>
 </resources>

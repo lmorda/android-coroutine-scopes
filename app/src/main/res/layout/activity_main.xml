@@ -61,4 +61,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_lifecycle_scope" />
 
+    <Button
+        android:id="@+id/btn_livedata_scope"
+        android:text="@string/livedata_scope"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:textSize="16sp"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_viewmodel_scope" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -66,10 +66,19 @@ class MainActivity : AppCompatActivity() {
             // Will not block main thread since the ViewModel calls the service's suspending function
             viewModel.readFile(this, this)
         }
-        viewModel.readComplete.observe(this, {
+        viewModel.readCompleteLiveData.observe(this, {
             // Does not crash app since this is lifecycle aware and runs on main thread
             showToast("End of file read")
         })
+
+        btn_livedata_scope.setOnClickListener {
+            showToast("liveData + emit")
+            // Will not block main thread since the ViewModel calls the service's suspending function
+            viewModel.readFile(this).observe(this, {
+                // Does not crash app since this is lifecycle aware and runs on main thread
+                showToast("End of file read")
+            })
+        }
     }
 
     private fun showToast(message: String) {
