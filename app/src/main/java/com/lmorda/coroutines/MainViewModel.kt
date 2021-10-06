@@ -29,12 +29,9 @@ class MainViewModel: ViewModel() {
 
             // This does not block the main thread since we are calling the suspending function,
             // so even though launch dispatches onto the main thread this will not block the main thread
-            diskService.suspendingLongDiskOperation()
+            _readComplete.postValue(diskService.suspendingLongDiskOperation())
 
         }
-        diskService.readComplete.observe(lifecycleOwner, Observer {
-            _readComplete.postValue(it)
-        })
     }
 
     fun readFile(context: Context): LiveData<Boolean> {
