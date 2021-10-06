@@ -17,7 +17,7 @@ class MainViewModel: ViewModel() {
     private var readComplete: Boolean = false
 
 
-    fun readFile(context: Context, lifecycleOwner: LifecycleOwner) {
+    fun readFile(context: Context) {
         val diskService = MockDiskService(context)
 
         // launch is a coroutine builder that dispatches onto the main thread
@@ -34,7 +34,7 @@ class MainViewModel: ViewModel() {
         }
     }
 
-    fun readFile(context: Context): LiveData<Boolean> {
+    fun readFileLiveDataEmitExample(context: Context): LiveData<Boolean> {
         val diskService = MockDiskService(context)
         // liveData is a coroutine builder that dispatches onto the main thread
         return liveData {

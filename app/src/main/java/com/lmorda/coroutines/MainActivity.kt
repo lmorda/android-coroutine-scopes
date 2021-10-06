@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
         btn_viewmodel_scope.setOnClickListener {
             showToast("viewModelScope.launch")
             // Will not block main thread since the ViewModel calls the service's suspending function
-            viewModel.readFile(this, this)
+            viewModel.readFile(this)
         }
         viewModel.readCompleteLiveData.observe(this, {
             // Does not crash app since this is lifecycle aware and runs on main thread
@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         btn_livedata_scope.setOnClickListener {
             showToast("liveData + emit")
             // Will not block main thread since the ViewModel calls the service's suspending function
-            viewModel.readFile(this).observe(this, {
+            viewModel.readFileLiveDataEmitExample(this).observe(this, {
                 // Does not crash app since this is lifecycle aware and runs on main thread
                 showToast("End of file read")
             })
